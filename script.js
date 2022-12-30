@@ -1,0 +1,69 @@
+function equipamentos() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  var i = 0;
+  var j = 0;
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Equipamentos'), true);
+  //Logger.log(spreadsheet.getLastRow());
+  i = spreadsheet.getLastRow();
+  j = i-1000;
+  
+  for(i; i >= j; i--){
+    //Logger.log(i);
+   // Logger.log(j);
+    spreadsheet.getRange('A'+ i).activate();
+    if(spreadsheet.getActiveRange().getValue() !=''){
+      break;
+    };
+    spreadsheet.getRange('A3:C3').copyTo(spreadsheet.getActiveRange(), SpreadsheetApp.CopyPasteType.PASTE_NORMAL, false);
+  };
+entrada();
+};
+
+function entrada() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  var i = 0;
+  var j = 0;
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Entrada/agendamento'), true);
+  //Logger.log(spreadsheet.getLastRow());
+  i = spreadsheet.getLastRow();
+  j = i-500;
+  
+  for(i; i >= j; i--){
+    //Logger.log(i);
+    //Logger.log(j);
+    spreadsheet.getRange('C'+ i).activate();
+    if(spreadsheet.getActiveRange().getValue() !=''){
+      break;
+    };
+    spreadsheet.getRange('C2').copyTo(spreadsheet.getActiveRange(), SpreadsheetApp.CopyPasteType.PASTE_NORMAL, false);
+  };
+atualiza();
+};
+
+function atualiza() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  var i = 0;
+  var j = 0;
+  var k = 0;
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Entrada/agendamento'), true);
+  i = spreadsheet.getLastRow();
+  //Logger.log(i);
+  spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Respostas ao formulário 1'), true);
+  j = spreadsheet.getLastRow();
+  //Logger.log(j);
+  k = spreadsheet.getSheetByName('Respostas ao formulário 1').getMaxRows();
+  //Logger.log(k)
+  //Logger.log(i-j)
+  if (k<i){
+    spreadsheet.insertRowsAfter(j,(i-j));
+  };
+  if (j < i){
+    for(j; j <= i; j++){
+     // Logger.log(i);
+      //Logger.log(j);
+      spreadsheet.getRange("A"+j).activate();
+      spreadsheet.getRange('2:2').copyTo(spreadsheet.getActiveRange(), SpreadsheetApp.CopyPasteType.PASTE_NORMAL, false);
+    };
+  };
+return;
+};
